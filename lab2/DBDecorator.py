@@ -16,3 +16,4 @@ class DBDecorator(MyEntity_rep_DB):
             filtered_count = sum(1 for item in range(count) if filter_func(item))
             return filtered_count
         return count
+1
