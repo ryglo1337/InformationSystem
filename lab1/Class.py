@@ -72,6 +72,29 @@ class Client:
             comment=validated_data["comment"],
         )
 
+    def str(self):
+        return (
+            f"Full Details:\n"
+            f"Last Name: {self.last_name}\n"
+            f"First Name: {self.first_name}\n"
+            f"Middle Name: {self.middle_name}\n"
+            f"Comment: {self.comment}\n"
+           
+        )
+    # Вывод краткой версии объекта
+    def repr(self):
+        return f"Client({self.first_name} {self.last_name}, {self.profession})"
+    # Сравнение объектов на равенство
+    def eq(self, other):
+        if not isinstance(other, Client):
+            return NotImplemented
+        return (
+            self.last_name == other.last_name and
+            self.first_name == other.first_name and
+            self.middle_name == other.middle_name and
+            self.comment == other.comment
+        )
+
 
     # Геттеры
     @property
