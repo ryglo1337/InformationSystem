@@ -1,43 +1,26 @@
 class Client:
     def init(self, last_name, first_name, middle_name, comment):
         # Используем сеттеры для установки значений
-        self.last_name = self.validate_last_name(last_name)
-        self.first_name = self.validate_first_name(first_name)
-        self.middle_name = self.validate_middle_name(middle_name)
-        self.comment = self.validate_comment(qualification)
+        self.last_name = self.validate_value(last_name, "Last name", is_required=True, only_letters=True)
+        self.first_name = self.validate_value(first_name, "First name", is_required=True, only_letters=True)
+        self.middle_name = self.validate_value(middle_name, "Middle name", is_required=False, only_letters=True)
+        self.comment = self.validate_value(comment, "Сomment", is_required=True, only_letters_and_spaces=True)
         
-    # Валидация фамилии
-    @staticmethod
-    def validate_last_name(value):
-        if not value.strip():
-            raise ValueError("Last name cannot be empty.")
-        if not value.isalpha():
-            raise ValueError("Last name must contain only letters.")
-        return value
-    # Валидация имени
-    @staticmethod
-    def validate_first_name(value):
-        if not value.strip():
-            raise ValueError("First name cannot be empty.")
-        if not value.isalpha():
-            raise ValueError("First name must contain only letters.")
-        return value
-    # Валидация отчества
-    @staticmethod
-    def validate_middle_name(value):
-        if value.strip() and not value.isalpha():
-            raise ValueError("Middle name must contain only letters if provided.")
-        return value
-    
-    # Валидация квалификации
-    @staticmethod
-    def validate_comment(value):
-        if not value.strip():
-            raise ValueError("comment cannot be empty.")
-        if not value.replace(' ', '').isalpha():
-            raise ValueError("comment must contain only letters and spaces.")
-        return value
 
+    
+     def validate_value(value, field_name, is_required=True, only_letters=False, only_letters_and_spaces=False):
+        """
+        Универсальный метод валидации.
+        """
+        if is_required and not value.strip():
+            raise ValueError(f"{field_name} cannot be empty.")
+        
+        if only_letters and not value.replace(' ', '').isalpha():
+            raise ValueError(f"{field_name} must contain only letters.")
+        
+        if only_letters_and_spaces and not all(char.isalpha() or char.isspace() for char in value):
+            raise ValueError(f"{field_name} must contain only letters and spaces.")
+    
     
     # Геттеры
     @property
