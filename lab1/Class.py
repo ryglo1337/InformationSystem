@@ -124,4 +124,15 @@ class Client:
     def qualification(self, value):
         self.__comment = value
 
-  
+  class ShortClient:
+    def init(self, client):
+        if not isinstance(client, Client):
+            raise ValueError("Expected an instance of Client.")
+        
+        self.first_name = client.first_name
+        self.last_name = client.last_name
+        self.profession = client.profession
+    def str(self):
+        return f"{self.first_name} {self.last_name}, {self.profession}"
+    def repr(self):
+        return f"ShortClient({self.first_name} {self.last_name}, {self.profession})"
